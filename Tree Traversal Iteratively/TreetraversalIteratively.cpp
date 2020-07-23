@@ -116,4 +116,6 @@ int main(void) {
     printPostorderUsingRecursion(root);cout<<endl;
     cout<<"Printing PostOrder using Iteration: "<<endl;
     printPostorderUsingIteration(root); cout<<endl;
+
+    return;
 }
