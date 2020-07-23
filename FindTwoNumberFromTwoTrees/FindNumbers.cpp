@@ -1,4 +1,6 @@
 #include<bits/stdc++.h>
+#define int long long
+#define endl "\n"
 using namespace std;
 
 class Node {
@@ -31,13 +33,10 @@ class Node {
             processInorder(root1, arr1);
             processInorder(root2, arr2);
 
-            // for(auto a: arr1) cout<<a<<" ";cout<<endl;
-            // for(auto a: arr2) cout<<a<<" ";
-
             int i=0, j=arr2.size()-1;
             while(i<arr1.size() and j>=0) {
                 if(arr1[i] + arr2[j] == s) {
-                    cout<<arr1[i]<<" "<<arr2[j]<<endl;
+                    cout<<arr1[i]<<" "<<arr2[j];
                     break;
                 }
                 else if(arr1[i]+arr2[j] < s) {
@@ -68,4 +67,5 @@ int main(void) {
 
     Node *obj = new Node();
     obj->findSolution(root, root2);
+    cout<<endl;
 }
