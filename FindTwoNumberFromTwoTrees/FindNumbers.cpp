@@ -6,6 +6,7 @@ using namespace std;
 class Node {
 
     public: 
+    
         int data;
         Node *left, *right;
         vector<int> arr1, arr2;
