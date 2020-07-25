@@ -4,5 +4,6 @@
         "iostream": "cpp",
         "new": "cpp"
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.formatting.provider": "autopep8"
 }
