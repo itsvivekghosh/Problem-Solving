@@ -3,6 +3,7 @@ using namespace std;
 
 int findSolution1(vector<int> arr, int n) { // in O(n^2) Time Complexity
     
+    cout<<"Solution 1: ";
     int left=0, right=0, ans=0;
     
     for(int i=1;i<n-1;++i) {
@@ -21,6 +22,7 @@ int findSolution1(vector<int> arr, int n) { // in O(n^2) Time Complexity
 
 int findSolution2(vector<int> arr, int n) { // improvement Over O(N^2) algorithm (above solution) but using O(N) space Complexity
     
+    cout<<"Solution 2: ";
     vector<int> left(n), right(n);
     int ans=0;
     
@@ -43,15 +45,44 @@ int findSolution2(vector<int> arr, int n) { // improvement Over O(N^2) algorithm
     return ans;
 }
 
+int findSolution3(vector<int> arr, int n) { // in O(n) Time Complexity and O(1) space Complexity
+    
+    cout<<"Solution 3: ";
+    int ans=0;
+    
+    int left_max = 0, right_max = 0;
+    int low = 0, high = n-1;
+    
+    while(low <= high) {
+        
+        if (arr[low] < arr[high]) {
+            if (arr[low] > left_max) left_max = arr[low];
+            else ans += left_max - arr[low];
+            low++;
+        }
+        else {
+            if (arr[high] > right_max) right_max = arr[high];
+            else ans += right_max - arr[high];
+            high--;
+        }
+    }
+    
+    return ans;
+}
+
+// Driver Code
 int main() {
     int t; cin>>t;
     
-    while(t--) {
+    for(auto i=1;i<=t;++i) {
         int n; cin>>n;
         vector<int> arr(n);
         for(auto &a: arr) cin>>a;
         
+        cout<<"For Test Case: "<<i<<endl;
         cout<<findSolution1(arr, n)<<endl;
         cout<<findSolution2(arr, n)<<endl;
+        cout<<findSolution3(arr, n)<<endl;
+        cout<<endl;
     }
 }
