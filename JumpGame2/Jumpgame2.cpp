@@ -39,7 +39,7 @@ void Solution::findSolution() {
     }
 }
 
-int main() {
+int32_t main() {
     Solution *obj = new Solution();
     delete obj;
 }
