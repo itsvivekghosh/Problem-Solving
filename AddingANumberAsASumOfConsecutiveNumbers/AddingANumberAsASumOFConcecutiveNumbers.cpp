@@ -16,27 +16,41 @@ Output :1
 */
 
 #include<bits/stdc++.h>
+#define ll long long
 using namespace std;
+
 int findSolution(int N) {
 
-    int n=2;
-    int count=0;
+    ll n=2;
+    ll count=0;
 
     while((2*N + n - pow(n, 2)) > 0) {
 
-        float a = (2*N + n - pow(n, 2))/(2*n);
-        if (a-int(a) == 0) {
+        float a = (2*N + n - pow(n, 2)) / (2*n);
+
+        if (a - int(a) == 0) {
             count++;
         }
         n++;
     }
     return count;
 }
+
 int main() {
 
-    int t; cin>>t;
+    ll t; cin>>t;
+
     while(t--) {
-        int n; cin>>n;
+        ll n; cin>>n;
         cout<<findSolution(n)<<endl;
     }
 }
+
+/*
+2
+100
+10
+
+2
+1
+*/
