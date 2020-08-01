@@ -2,7 +2,8 @@
     "files.associations": {
         "*.ejs": "html",
         "iostream": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "*.tcc": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "python.formatting.provider": "autopep8"
