@@ -3,7 +3,10 @@
         "*.ejs": "html",
         "iostream": "cpp",
         "new": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "python.formatting.provider": "autopep8"
