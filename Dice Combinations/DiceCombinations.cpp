@@ -8,7 +8,7 @@
 #define vs vector<string>
 #define vvi vector<vector<int>>
 #define sortAll(a) sort(a.begin(), b.end());
-#define MOD 1000000007
+#define MOD 10000000007
 #define input(a) cin>>a;
 #define output(a) cout<<a;
 #define LOOP_INC(i, a, b, space) for(int i=a;i<b;i+=space)
@@ -28,14 +28,22 @@ using namespace std;
 int findSolution(int n){
 
 	int dp[n+1] = {0};
-	for(int i=1;i<=n;++i) {
-		for(int x=1;x<=6;++x) {
-			if (x > i) break;
-			dp[i] = (dp[i] - dp[i-x])%MOD;
+	dp[0] = 1;
+
+	LOOP_INC(num, 1, n+1, 1) {
+		LOOP_INC(dice, 1, 7, 1) {
+
+			if (num < dice) break;
+			dp[num] = (dp[num] + dp[num-dice]) % MOD;
 		}
 	}
 
 	return dp[n];
+}
+
+int findMinimumCoins(int n, int m, vi coins) {
+
+	
 }
 
 // Driver's Code
@@ -43,13 +51,10 @@ int32_t main() {
 
 	BOOST;
 
-	// Here's the Solution Code
-	test_cases{
-		int n; input(n);
-		cout<<findSolution(n)<<endl;
-	}
+	int n; input(n);
+	cout<<findSolution(n)<<endl;
 
-	getchar();
+	return 0;
 }
 
 

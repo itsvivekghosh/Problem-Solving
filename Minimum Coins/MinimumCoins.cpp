@@ -1,11 +1,9 @@
-<snippet>
-	<content><![CDATA[
 #include<bits/stdc++.h>
 #define int long long
 #define int_init(a, b) int a = b;
 #define str_init(a, b) string s = b;
-#define vi_init(a, n) vector<int> a(n);
-#define vs_init(a, n) vector<string> a(n);
+#define vi_init(a, n, b) vector<int> a(n, b)
+#define vs_init(a, n) vector<string> a(n)
 #define endl "\n"
 #define BOOST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define test_cases int t; cin>>t; while(t--)
@@ -30,13 +28,26 @@
 
 using namespace std;
 
-// Here's the Problem Code
-int findSolution(int n){
+int findMinimumCoins(int n, int Money, vi coins) {
 
-	int ans=0;
+	vi_init(dp, Money+1, INT_MAX);
+	dp[0] = {0};
 
-	// Write the Solution
-	return ans;
+	LOOP_INC(i, 1, Money+1, 1) { // Money
+		LOOP_INC(j, 0, n, 1) { // Coins
+
+			if (coins[j] <= i) {
+				int_init(sub_res, dp[i-coins[j]]);
+
+				if (sub_res != INT_MAX and sub_res+1 < dp[i]) {
+					dp[i] = sub_res + 1;
+				}
+			}
+		}
+	}
+
+	if (dp[Money] == INT_MAX) return -1;
+	return dp[Money];
 }
 
 // Driver's Code
@@ -44,21 +55,19 @@ int32_t main() {
 
 	BOOST
 
-	// Here's the Solution Code
-	test_cases {
+	int n, m; input(n); input(m);
+	vi coins(n);
 
-		// int n; input(n);
-		// cout<<findSolution(n)<<endl;
-
-	}
+	input_vector(coins);
+	cout<<findMinimumCoins(n, m, coins)<<endl;
 
 	return 0;
 }
 
 
 /*
-g++ program.cpp -o program
-./program
+g++ MinimumCoins.cpp -o MinimumCoins
+./MinimumCoins
 */
 
 /*
@@ -68,9 +77,3 @@ Input
 /*
 Output
 */
-]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>cpp</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c++</scope>
-</snippet>
