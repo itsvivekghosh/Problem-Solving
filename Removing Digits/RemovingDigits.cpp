@@ -1,5 +1,3 @@
-<snippet>
-	<content><![CDATA[
 // Importing Important Libraries
 #include<bits/stdc++.h>
 
@@ -21,7 +19,6 @@
 #define output(a) cout<<a;
 #define LOOP_INC(i, a, b, space) for(int i=a;i<b;i+=space)
 #define LOOP_DEC(i, a, b, space) for(int i=a;i>b;i-=space)
-#define LOOP_ALL(a, b) for(auto a: b)
 #define vpii vector<pair<int, int>>
 #define umii unordered_map<int, int>
 #define umsi unordered_map<string, int>
@@ -34,51 +31,47 @@
 using namespace std;
 
 // Here's the Problem Code
-int findSolution(int n){
+int findSolution(int n) {
 
-	int ans=0;
+	vi dp(n+1, INT_MAX);
+	dp[0] = 0;
 
-	// Write the Solution
-	return ans;
+	for(int i=0;i<=n;++i) {
+		for(char c: to_string(i)) {
+			dp[i] = min(dp[i], dp[i - (c-'0')]+1);
+			// cout<<i<<" "<<dp[i]<<"  ";
+		}
+	}
+
+	return dp[n];
 }
 
 // Driver's Code
 int32_t main() {
 
-	BOOST
-	// For Input and Output Files
 	#ifndef INPUT_ONLINE
 		freopen("../input.txt", "r", stdin);
 		freopen("../output.txt", "w", stdout);
 	#endif
+		
+	BOOST
 
 	// Here's the Solution Code
-	test_cases {
-
-		// int n; input(n);
-		// cout<<findSolution(n)<<endl;
-
-	}
-
+	int n; input(n);
+	cout<<findSolution(n)<<endl;
 	return 0;
 }
 
 
 /*
-g++ program.cpp -o program
-./program
+g++ RemovingDigits.cpp -o RemovingDigits.exe
+./RemovingDigits
 */
 
 /*
-Input
+Input: 27
 */
 
 /*
-Output
+Output: 5
 */
-]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>cpp</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c++</scope>
-</snippet>

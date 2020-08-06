@@ -6,7 +6,7 @@ int main() {
   int n, target;
   cin >> n >> target;
   vector<int> x(n);
-  for (int&v : x) cin >> v;
+  for (int &v : x) cin >> v;
 
   vector<vector<int>> dp(n+1,vector<int>(target+1,0));
   dp[0][0] = 1;

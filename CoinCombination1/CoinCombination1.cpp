@@ -1,9 +1,7 @@
-<snippet>
-	<content><![CDATA[
 // Importing Important Libraries
 #include<bits/stdc++.h>
 
-#define int long long
+#define int long long int
 #define int_init(a, b) int a = b;
 #define str_init(a, b) string s = b;
 #define vi_init(a, n, x) vector<int> a(n, x);
@@ -19,9 +17,8 @@
 #define MOD 1000000007
 #define input(a) cin>>a;
 #define output(a) cout<<a;
-#define LOOP_INC(i, a, b, space) for(int i=a;i<b;i+=space)
-#define LOOP_DEC(i, a, b, space) for(int i=a;i>b;i-=space)
-#define LOOP_ALL(a, b) for(auto a: b)
+#define LOOP_INC(i, a, b, space) for(long long i=a;i<b;i+=space)
+#define LOOP_DEC(i, a, b, space) for(long long i=a;i>b;i-=space)
 #define vpii vector<pair<int, int>>
 #define umii unordered_map<int, int>
 #define umsi unordered_map<string, int>
@@ -34,39 +31,42 @@
 using namespace std;
 
 // Here's the Problem Code
-int findSolution(int n){
+int findSolution(int n, int m, vi coins) {
 
-	int ans=0;
+	vi_init(dp, m+1, 0);
 
-	// Write the Solution
-	return ans;
+	dp[0] = 1;
+ 
+	LOOP_INC(i, 1, m+1, 1) {
+		LOOP_INC(j, 0, n, 1) {
+			if(i - coins[j] >= 0) {
+				dp[i] = (dp[i] + dp[i - coins[j]]) % MOD;
+			}
+		}
+	}
+
+	return dp[m];
 }
 
 // Driver's Code
 int32_t main() {
 
 	BOOST
-	// For Input and Output Files
-	#ifndef INPUT_ONLINE
-		freopen("../input.txt", "r", stdin);
-		freopen("../output.txt", "w", stdout);
-	#endif
 
 	// Here's the Solution Code
-	test_cases {
+	int n, m; input(n); input(m);
+	vi coins(n);
+	input_vector(coins);
 
-		// int n; input(n);
-		// cout<<findSolution(n)<<endl;
-
-	}
+	cout<<findSolution(n, m, coins)<<endl;
 
 	return 0;
 }
 
 
 /*
-g++ program.cpp -o program
-./program
+g++ CoinCombination1.cpp -o CoinCombination1
+./CoinCombination1
 */
 
 /*
@@ -76,9 +76,3 @@ Input
 /*
 Output
 */
-]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>cpp</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c++</scope>
-</snippet>

@@ -37,6 +37,7 @@ int findMinimumCoins(int n, int Money, vi coins) {
 		LOOP_INC(j, 0, n, 1) { // Coins
 
 			if (coins[j] <= i) {
+
 				int_init(sub_res, dp[i-coins[j]]);
 
 				if (sub_res != INT_MAX and sub_res+1 < dp[i]) {
@@ -76,4 +77,25 @@ Input
 
 /*
 Output
+*/
+/*
+	vi_init(dp, Money+1, INT_MAX);
+	dp[0] = {0};
+
+	LOOP_INC(i, 1, Money+1, 1) { // Money
+		LOOP_INC(j, 0, n, 1) { // Coins
+
+			if (coins[j] <= i) {
+
+				int_init(sub_res, dp[i-coins[j]]);
+
+				if (sub_res != INT_MAX and sub_res+1 < dp[i]) {
+					dp[i] = sub_res + 1;
+				}
+			}
+		}
+	}
+
+	if (dp[Money] == INT_MAX) return -1;
+	return dp[Money];
 */
