@@ -31,52 +31,68 @@
 
 using namespace std;
 
-// Here's the Problem Code
-int findSolution(int n){
-
-	vector<vi> dp(n, vi(n, 0));
-  	dp[0][0] = 1;
-
-	LOOP_INC(i, 0, n, 1) {
-		string row; input(row);
-		LOOP_INC(j, 0, n, 1) {
-			if(row[j] == '.') {
-				if (i > 0) {
-					dp[i][j] = (dp[i][j] + dp[i-1][j]) % MOD;
-				}
-				if (j > 0) {
-					dp[i][j] = (dp[i][j] + dp[i][j-1]) % MOD;
-				}
-			}
-			else {
-				dp[i][j] = 0;
-			}
-		}
-	}
-
-	LOOP_INC(i, 0, n, 1) {
-		LOOP_INC(j, 0, n, 1) {
-			cout<<dp[i][j]<<" ";
-		}
-		cout<<"\n";
-	}
-	return dp[n-1][n-1];
+int max(int a, int b) {
+	return (a>b) ? a:b;
 }
+
+int findSolution1(int C, int N, vi wt, vi val) {
+
+	if (N == 0 or C == 0) return 0;
+	if (wt[N-1] > C) return findSolution1(C, N-1, wt, val);
+
+	return (max(
+		findSolution1(C-wt[N-1], N-1, wt, val) + val[N-1],
+		findSolution1(C, N-1, wt, val)
+	));
+}
+
+int findSolution2(int n, int x, vi prices, vi pages) {
+
+	int dp[n+1][x+1];
+
+	LOOP_INC(i, 0, n+1, 1) {
+		LOOP_INC(w, 0, x+1, 1) {
+			if (i == 0 or w == 0) dp[i][w] = 0;
+			else if(prices[i-1] > w) dp[i][w]=dp[i-1][w];
+			else {
+				dp[i][w] = max(
+					pages[i-1] + dp[i-1][w - prices[i-1]],
+					dp[i-1][w]
+				);
+			}
+		}
+	}
+
+	// LOOP_INC(i, 0, n+1, 1) {
+	// 	LOOP_INC(w, 0, x+1, 1) {
+	// 		cout<<dp[i][w]<<" ";
+	// 	}
+	// 	cout<<endl;
+	// }
+	return dp[n][x];
+} 
 
 // Driver's Code
 int32_t main() {
-
+	
 	BOOST
 
+	// For Input and Output Files
 	#ifndef INPUT_ONLINE
 		freopen("../input.txt", "r", stdin);
 		freopen("../output.txt", "w", stdout);
 	#endif
 
-	// Here's the Solution Code
+	//Here's the Solution Code
 	test_cases {
-		int n; input(n);
-		cout<<findSolution(n)<<endl;
+
+		int n, x; input(n); input(x);
+		vi prices(n); input_vector(prices);
+		vi pages(n); input_vector(pages);
+
+		// cout<<findSolution1(x, n, prices, pages)<<endl;
+		cout<<findSolution2(n, x, prices, pages)<<endl;
+
 	}
 
 	return 0;
@@ -84,18 +100,12 @@ int32_t main() {
 
 
 /*
-g++ GridPairs.cpp -o GridPairs
-./GridPairs
+g++ program.cpp -o program
+./program
 */
 
 /*
-Input:
-1
-4
-....
-.*..
-...*
-*...
+Input
 */
 
 /*
