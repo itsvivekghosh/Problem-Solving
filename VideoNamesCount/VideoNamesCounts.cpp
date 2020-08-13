@@ -31,12 +31,28 @@
 
 using namespace std;
 
+bool compare(pair<string, int> &video1, pair<string, int> &video2) {
+
+	return (video1.second > video2.second);
+}
+
 // Here's the Problem Code
-int findSolution(int n){
+vector<string> findSolution(vector<pair<string, int>> videos, int n) {
 
-	int ans=0;
+	unordered_map<string, int> map;
+	vector<string> ans;
 
-	// Write the Solution
+	for(auto video: videos) {
+		if (map[video.first] < video.second)
+			map[video.first] = video.second;
+	}
+
+	vector<pair<string, int>> elems(map.begin(), map.end());
+	sort(elems.begin(), elems.end(), compare);
+
+	for (auto a: elems) {
+		ans.emplace_back(a.first);
+	}
 	return ans;
 }
 
@@ -57,15 +73,17 @@ int32_t main() {
 		int n; cin>>n;
 		vector<pair<string, int>> videos;
 		for (int i=0;i<n;i++) {
-			int name, views;
+			string name; int views;
 			cin>>name>>views;
-			videos[i].push_back({name, views});
+			videos.push_back(make_pair(name, views));
 		}
 
-		for(auto a: videos) {
-			cout<<a.first<<" "<<a.second<<endl;
-		}
-
+		// for(auto a: videos) {
+		// 	cout<<a.first<<" "<<a.second<<endl;
+		// }
+		vector<string> ans = findSolution(videos, n);
+		for(auto a: ans) cout<<a<<" ";
+		cout<<endl;
 	}
 
 	return 0;
