@@ -77,10 +77,6 @@ int32_t main() {
 			cin>>name>>views;
 			videos.push_back(make_pair(name, views));
 		}
-
-		// for(auto a: videos) {
-		// 	cout<<a.first<<" "<<a.second<<endl;
-		// }
 		vector<string> ans = findSolution(videos, n);
 		for(auto a: ans) cout<<a<<" ";
 		cout<<endl;

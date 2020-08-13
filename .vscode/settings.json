@@ -6,7 +6,8 @@
         "*.tcc": "cpp",
         "deque": "cpp",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "ostream": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "python.formatting.provider": "autopep8"
