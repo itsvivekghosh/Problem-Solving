@@ -31,29 +31,40 @@
 
 using namespace std;
 
-bool compare(pair<string, int> &video1, pair<string, int> &video2) {
+bool isPrime(int n) {
 
-	return (video1.second > video2.second);
+	if (n <= 1) return false;
+	if (n <= 3) return true;
+	for (int i = 2;i<n;++i) {
+		if (n % i == 0) return false;
+	}
+	return true;
 }
 
 // Here's the Problem Code
-vector<string> findSolution(vector<pair<string, int>> videos, int n) {
+int findSolution(int D, int P){
 
-	unordered_map<string, int> map;
-	vector<string> ans;
+	int H = D/P;
+	int N = H;
+	int res = 0;
 
-	for(auto video: videos) {
-		if (map[video.first] < video.second)
-			map[video.first] = video.second;
+	while (N > 1) {
+		int i=0;
+		int count = 0;
+		
+		while (1) {
+			int k = (i * H) + N;
+			cout<<i<<" "<<H<<" "<<N<<" "<<k<<endl;
+
+			if (isPrime(k) and k<=D) count++;
+			if (i == (P - 1)) break;
+			i++;
+		}
+		if (count == P) res++;
+		N--;
 	}
 
-	vector<pair<string, int>> elems(map.begin(), map.end());
-	sort(elems.begin(), elems.end(), compare);
-
-	for (auto a: elems) {
-		ans.emplace_back(a.first);
-	}
-	return ans;
+	return res;
 }
 
 // Driver's Code
@@ -70,16 +81,8 @@ int32_t main() {
 	// Here's the Solution Code
 	test_cases {
 
-		int n; cin>>n;
-		vector<pair<string, int>> videos;
-		for (int i=0;i<n;i++) {
-			string name; int views;
-			cin>>name>>views;
-			videos.push_back(make_pair(name, views));
-		}
-		vector<string> ans = findSolution(videos, n);
-		for(auto a: ans) cout<<a<<" ";
-		cout<<endl;
+		int D, P; input(D); input(P);
+		cout<<findSolution(D, P)<<endl;
 	}
 
 	return 0;
@@ -92,32 +95,9 @@ g++ program.cpp -o program
 */
 
 /*
-Input:
-1
-20
-abc 10
-ddc 20
-fde 90
-gfq 40
-uit 88
-efd 23
-dfv 35
-vdf 55
-csd 76
-dsd 33
-cds 56
-vdf 56
-fvb 78
-vdf 45
-bfg 34
-thy 42 
-ytg 80
-cdf 32
-fde 32
-gfq 65
+Input
 */
 
 /*
-Output: 
-fde uit ytg fvb csd gfq cds vdf thy dfv bfg dsd cdf efd ddc abc 
+Output
 */

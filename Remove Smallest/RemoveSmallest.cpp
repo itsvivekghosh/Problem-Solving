@@ -13,7 +13,7 @@
 #define vi vector<int> 
 #define vs vector<string>
 #define vvi vector<vector<int>>
-#define sortAll(a) sort(a.begin(), b.end());
+#define sortAll(a) sort(a.begin(), a.end());
 #define MOD 1000000007
 #define input(a) cin>>a;
 #define output(a) cout<<a;
@@ -31,29 +31,15 @@
 
 using namespace std;
 
-bool compare(pair<string, int> &video1, pair<string, int> &video2) {
-
-	return (video1.second > video2.second);
-}
-
 // Here's the Problem Code
-vector<string> findSolution(vector<pair<string, int>> videos, int n) {
+bool findSolution(int n, vi &arr) {
 
-	unordered_map<string, int> map;
-	vector<string> ans;
-
-	for(auto video: videos) {
-		if (map[video.first] < video.second)
-			map[video.first] = video.second;
+	if (n == 1) return true;
+	sortAll(arr);
+	LOOP_INC(i, 1, n, 1) {
+		if (abs(arr[i] - arr[i-1] > 1)) return false;
 	}
-
-	vector<pair<string, int>> elems(map.begin(), map.end());
-	sort(elems.begin(), elems.end(), compare);
-
-	for (auto a: elems) {
-		ans.emplace_back(a.first);
-	}
-	return ans;
+	return true;
 }
 
 // Driver's Code
@@ -70,16 +56,11 @@ int32_t main() {
 	// Here's the Solution Code
 	test_cases {
 
-		int n; cin>>n;
-		vector<pair<string, int>> videos;
-		for (int i=0;i<n;i++) {
-			string name; int views;
-			cin>>name>>views;
-			videos.push_back(make_pair(name, views));
-		}
-		vector<string> ans = findSolution(videos, n);
-		for(auto a: ans) cout<<a<<" ";
-		cout<<endl;
+		int n; input(n);
+		vi arr(n, 0);
+		input_vector(arr);
+
+		findSolution(n, arr) ? cout<<"YES\n" : cout<<"NO\n";
 	}
 
 	return 0;
@@ -93,31 +74,20 @@ g++ program.cpp -o program
 
 /*
 Input:
+5
+3
+1 2 2
+4
+5 5 5 5
+3
+1 2 4
+4
+1 3 4 4
 1
-20
-abc 10
-ddc 20
-fde 90
-gfq 40
-uit 88
-efd 23
-dfv 35
-vdf 55
-csd 76
-dsd 33
-cds 56
-vdf 56
-fvb 78
-vdf 45
-bfg 34
-thy 42 
-ytg 80
-cdf 32
-fde 32
-gfq 65
+100
+
 */
 
 /*
-Output: 
-fde uit ytg fvb csd gfq cds vdf thy dfv bfg dsd cdf efd ddc abc 
+Output
 */

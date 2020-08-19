@@ -1,22 +1,11 @@
+5
+3
+1 2 2
+4
+5 5 5 5
+3
+1 2 4
+4
+1 3 4 4
 1
-20
-abc 10
-ddc 20
-fde 90
-gfq 40
-uit 88
-efd 23
-dfv 35
-vdf 55
-csd 76
-dsd 33
-cds 56
-vdf 56
-fvb 78
-vdf 45
-bfg 34
-thy 42 
-ytg 80
-cdf 32
-fde 32
-gfq 65
+100

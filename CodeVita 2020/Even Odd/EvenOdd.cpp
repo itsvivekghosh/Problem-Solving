@@ -31,28 +31,16 @@
 
 using namespace std;
 
-bool compare(pair<string, int> &video1, pair<string, int> &video2) {
-
-	return (video1.second > video2.second);
-}
-
 // Here's the Problem Code
-vector<string> findSolution(vector<pair<string, int>> videos, int n) {
+int findSolution(int low, int high, int k){
 
-	unordered_map<string, int> map;
-	vector<string> ans;
+	int ans=0, flag = 0;
 
-	for(auto video: videos) {
-		if (map[video.first] < video.second)
-			map[video.first] = video.second;
+	LOOP_INC(i, low, high+1, 1) {
+		if (i % 2 == 0) flag++;
 	}
-
-	vector<pair<string, int>> elems(map.begin(), map.end());
-	sort(elems.begin(), elems.end(), compare);
-
-	for (auto a: elems) {
-		ans.emplace_back(a.first);
-	}
+	int x = high - low + 1;
+	ans = pow(x, k-1) * flag;
 	return ans;
 }
 
@@ -63,24 +51,16 @@ int32_t main() {
 
 	// For Input and Output Files
 	#ifndef INPUT_ONLINE
-		freopen("../input.txt", "r", stdin);
-		freopen("../output.txt", "w", stdout);
+		freopen("../../input.txt", "r", stdin);
+		freopen("../../output.txt", "w", stdout);
 	#endif
 
 	// Here's the Solution Code
-	test_cases {
+	int_init(low, 0);
+	int_init(high, 0);
+	int_init(k, 0);
 
-		int n; cin>>n;
-		vector<pair<string, int>> videos;
-		for (int i=0;i<n;i++) {
-			string name; int views;
-			cin>>name>>views;
-			videos.push_back(make_pair(name, views));
-		}
-		vector<string> ans = findSolution(videos, n);
-		for(auto a: ans) cout<<a<<" ";
-		cout<<endl;
-	}
+	cout<<findSolution(low, high, k);
 
 	return 0;
 }
@@ -92,32 +72,9 @@ g++ program.cpp -o program
 */
 
 /*
-Input:
-1
-20
-abc 10
-ddc 20
-fde 90
-gfq 40
-uit 88
-efd 23
-dfv 35
-vdf 55
-csd 76
-dsd 33
-cds 56
-vdf 56
-fvb 78
-vdf 45
-bfg 34
-thy 42 
-ytg 80
-cdf 32
-fde 32
-gfq 65
+Input
 */
 
 /*
-Output: 
-fde uit ytg fvb csd gfq cds vdf thy dfv bfg dsd cdf efd ddc abc 
+Output
 */

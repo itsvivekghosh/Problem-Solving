@@ -31,29 +31,36 @@
 
 using namespace std;
 
-bool compare(pair<string, int> &video1, pair<string, int> &video2) {
-
-	return (video1.second > video2.second);
-}
-
 // Here's the Problem Code
-vector<string> findSolution(vector<pair<string, int>> videos, int n) {
+string findSolution(int n, vector<vector<char>> arr){
 
-	unordered_map<string, int> map;
-	vector<string> ans;
-
-	for(auto video: videos) {
-		if (map[video.first] < video.second)
-			map[video.first] = video.second;
+	string result = "";
+	LOOP_INC(j, 0, n, 1) {
+		if(arr[1][j] == '#') {result+='#'; continue;}
+		else if(arr[0][j] == '.' and arr[1][j] == '.' and arr[2][j] == '.') continue;
+		else if(arr[1][j] == '.' and arr[1][j+1] == '*' and arr[1][j+2] == '.') {
+			result += "I";
+			j+=2;
+			continue;
+		}
+		else if(arr[1][j] == '*' and arr[1][j+1] == '.' and arr[1][j+2] == '*') {
+			if (arr[0][j+1] == '.') result += "U";
+			else result+="O";
+			j+=2;
+			continue;
+		}
+		else if(arr[0][j] == '.' and arr[0][j+1] == '*' and arr[0][j+2] == '.') {
+			result += "A";
+			j+=2;
+			continue;
+		}
+		else {
+			result+="E";
+			j+=2;
+			continue;
+		}
 	}
-
-	vector<pair<string, int>> elems(map.begin(), map.end());
-	sort(elems.begin(), elems.end(), compare);
-
-	for (auto a: elems) {
-		ans.emplace_back(a.first);
-	}
-	return ans;
+	return result;
 }
 
 // Driver's Code
@@ -69,17 +76,15 @@ int32_t main() {
 
 	// Here's the Solution Code
 	test_cases {
+		int_init(n, 0); input(n);
+		vector<vector<char>> arr(3, vector<char> (n, 0));
 
-		int n; cin>>n;
-		vector<pair<string, int>> videos;
-		for (int i=0;i<n;i++) {
-			string name; int views;
-			cin>>name>>views;
-			videos.push_back(make_pair(name, views));
-		}
-		vector<string> ans = findSolution(videos, n);
-		for(auto a: ans) cout<<a<<" ";
-		cout<<endl;
+		LOOP_INC(i, 0, 3, 1) {
+			LOOP_INC(j, 0, n, 1) {
+				cin>>arr[i][j];
+			}
+		}	
+		cout<<findSolution(n, arr)<<"\n";
 	}
 
 	return 0;
@@ -87,37 +92,25 @@ int32_t main() {
 
 
 /*
-g++ program.cpp -o program
-./program
+g++ Constellation.cpp -o Constellation
+./Constellation
 */
 
 /*
 Input:
-1
-20
-abc 10
-ddc 20
-fde 90
-gfq 40
-uit 88
-efd 23
-dfv 35
-vdf 55
-csd 76
-dsd 33
-cds 56
-vdf 56
-fvb 78
-vdf 45
-bfg 34
-thy 42 
-ytg 80
-cdf 32
-fde 32
-gfq 65
+2
+18
+* . * # * * * # * * * # * * * . * .
+* . * # * . * # . * . # * * * * * *
+* * * # * * * # * * * # * * * * . *
+12
+* . * # . * * * # . * .
+* . * # . . * . # * * *
+* * * # . * * * # * . *
 */
 
 /*
-Output: 
-fde uit ytg fvb csd gfq cds vdf thy dfv bfg dsd cdf efd ddc abc 
+Output:
+U#O#I#EA
+U#I#A
 */

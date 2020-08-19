@@ -31,29 +31,23 @@
 
 using namespace std;
 
-bool compare(pair<string, int> &video1, pair<string, int> &video2) {
-
-	return (video1.second > video2.second);
-}
-
 // Here's the Problem Code
-vector<string> findSolution(vector<pair<string, int>> videos, int n) {
+int findSolution(int n, vi &a, vi &b) {
 
-	unordered_map<string, int> map;
-	vector<string> ans;
-
-	for(auto video: videos) {
-		if (map[video.first] < video.second)
-			map[video.first] = video.second;
+	int total=0;
+	int min_a = INT_MAX, min_b = INT_MAX;
+	LOOP_INC(i, 0, n, 1) {
+		min_a = min(min_a, a[i]);
+	}
+	LOOP_INC(i, 0, n, 1) {
+		min_b = min(min_b, b[i]);
 	}
 
-	vector<pair<string, int>> elems(map.begin(), map.end());
-	sort(elems.begin(), elems.end(), compare);
-
-	for (auto a: elems) {
-		ans.emplace_back(a.first);
+	LOOP_INC(i, 0, n, 1) {
+		total += (max(a[i] - min_a, b[i] - min_b)) % MOD;	
 	}
-	return ans;
+	// Write the Solution
+	return total;
 }
 
 // Driver's Code
@@ -70,16 +64,13 @@ int32_t main() {
 	// Here's the Solution Code
 	test_cases {
 
-		int n; cin>>n;
-		vector<pair<string, int>> videos;
-		for (int i=0;i<n;i++) {
-			string name; int views;
-			cin>>name>>views;
-			videos.push_back(make_pair(name, views));
-		}
-		vector<string> ans = findSolution(videos, n);
-		for(auto a: ans) cout<<a<<" ";
-		cout<<endl;
+		int n; input(n);
+		vi a(n, 0), b(n, 0);
+		input_vector(a);
+		input_vector(b);
+
+		cout<<findSolution(n, a, b)<<endl;
+
 	}
 
 	return 0;
@@ -93,31 +84,25 @@ g++ program.cpp -o program
 
 /*
 Input:
-1
-20
-abc 10
-ddc 20
-fde 90
-gfq 40
-uit 88
-efd 23
-dfv 35
-vdf 55
-csd 76
-dsd 33
-cds 56
-vdf 56
-fvb 78
-vdf 45
-bfg 34
-thy 42 
-ytg 80
-cdf 32
-fde 32
-gfq 65
+5
+3
+3 5 6
+3 2 3
+5
+1 2 3 4 5
+5 4 3 2 1
+3
+1 1 1
+2 2 2
+6
+1 1000000000 1000000000 1000000000 1000000000 1000000000
+1 1 1 1 1 1
+3
+10 12 8
+7 5 4
+
 */
 
 /*
-Output: 
-fde uit ytg fvb csd gfq cds vdf thy dfv bfg dsd cdf efd ddc abc 
+Output
 */

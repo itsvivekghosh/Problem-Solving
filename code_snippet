@@ -15,7 +15,7 @@
 #define vi vector<int> 
 #define vs vector<string>
 #define vvi vector<vector<int>>
-#define sortAll(a) sort(a.begin(), b.end());
+#define sortAll(a) sort(a.begin(), a.end());
 #define MOD 1000000007
 #define input(a) cin>>a;
 #define output(a) cout<<a;
