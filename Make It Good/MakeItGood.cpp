@@ -32,20 +32,12 @@
 using namespace std;
 
 // Here's the Problem Code
-void findSolution(int n){
+int findSolution(int n, vi arr){
 
-	if (n == 1) {output(1); return;}
-	if (n > 1 and n <= 3) {output("NO SOLUTION"); return;}
-
-	vi arr;
-	for(int i=1;i<=n;++i) {
-		if (i % 2 == 0) arr.pb(i);
-	}
-	for(int i=1;i<=n;++i) {
-		if (i % 2 != 0) arr.pb(i);
-	}
-
-	for(auto a: arr) cout<<a<<" ";
+	int ans = n-1;
+	while(ans-1 >= 0 and arr[ans] <= arr[ans-1]) --ans;
+	while(ans-1 >= 0 and arr[ans-1] <= arr[ans]) --ans;
+	return ans;
 }
 
 // Driver's Code
@@ -54,15 +46,19 @@ int32_t main() {
 	BOOST
 
 	// For Input and Output Files
-	// #ifndef INPUT_ONLINE
-	// 	freopen("../input.txt", "r", stdin);
-	// 	freopen("../output.txt", "w", stdout);
-	// #endif
+	#ifndef INPUT_ONLINE
+		freopen("../input.txt", "r", stdin);
+		freopen("../output.txt", "w", stdout);
+	#endif
 
 	// Here's the Solution Code
+	test_cases {
 
-	int n; input(n);
-	findSolution(n);
+		int n; input(n);
+		vi arr(n); input_vector(arr);
+		cout<<findSolution(n, arr)<<endl;
+
+	}
 
 	return 0;
 }
